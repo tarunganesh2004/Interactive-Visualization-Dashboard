@@ -1,0 +1,13 @@
+/* Override Bootstrap defaults */
+.container {
+    max-width: 1200px;
+}
+
+.btn-primary {
+    font-weight: 500;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #2c3e50;
+}
