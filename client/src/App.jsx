@@ -1,36 +1,32 @@
-// @ts-nocheck
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { VRButton } from 'three/examples/jsm/webxr/VRButton';
+import * as d3 from 'd3';
+import FileUpload from './components/FileUpload';
+import Visualization from './components/Visualization';
+import Filters from './components/Filters';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [data, setData] = useState([]);
+  const [filters, setFilters] = useState({});
+
+  const handleDataUpdate = (newData) => {
+    setData(newData);
+  };
+
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="container my-4">
+      <h1 className="display-4 text-center mb-4">3D Data Visualization Dashboard</h1>
+      <FileUpload onDataUpdate={handleDataUpdate} />
+      <Filters data={data} onFilterChange={handleFilterChange} />
+      <Visualization data={data} filters={filters} />
+    </div>
+  );
+};
 
-export default App
+export default App;
